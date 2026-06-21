@@ -1,4 +1,6 @@
-import pygame
+import pygame, sys
+import circleshape
+from logger import log_event
 from asteroidfield import AsteroidField
 from player import Player
 from asteroid import Asteroid
@@ -33,6 +35,11 @@ def main():
 			item.draw(screen)
 		for item in updatable:
 			item.update(dt)
+		for item in asteroids:
+			if player1.collides_with(item):
+				log_event("player_hit")
+				print("Game over!")
+				sys.exit()
 		pygame.display.flip()
 		dt = clock.tick(60) / 1000
 		# print(dt)
